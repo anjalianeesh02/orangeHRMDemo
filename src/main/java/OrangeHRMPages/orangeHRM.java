@@ -2,16 +2,12 @@ package OrangeHRMPages;
 
 import PageObjectsHRM.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.IOException;
 import java.time.Duration;
-import java.util.concurrent.TimeUnit;
+
 
 public class orangeHRM {
 
@@ -20,49 +16,44 @@ public class orangeHRM {
     public static void main(String[] args) throws InterruptedException, IOException {
 
         WebDriver driver = new ChromeDriver();
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(20));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         driver.get("https://opensource-demo.orangehrmlive.com/web/index.php/auth/login");
         driver.manage().window().maximize();
 
+        ///LOGIN PAGE//
+
         LoginPage log = new LoginPage(driver);
-        Thread.sleep(1000);
         log.enterUserName();
-        Thread.sleep(1000);
         log.enterPassword();
-        Thread.sleep(1000);
         log.clickLoginButton();
-        Thread.sleep(1000);
 
 
+        ///DASHBOARD SCREEN//
         Dashboard obj = new Dashboard(driver);
         obj.verifyDashboardTitle();
 
+        ///ADMIN SCREEN///
         Admin obj1 = new Admin(driver);
         obj1.adminSelection();
-        Thread.sleep(1000);
         obj1.searchUser("Joe.Root");
-
         obj1.clickPencilIcon();
         obj1.CancelSearch();
         System.out.println("search competed successfully");
         obj1.backButtonClick();
         obj1.addUser();
-        Thread.sleep(1000);
-       // obj1.backButtonClick();
         obj1.selectDropdownValue("Admin");
         Thread.sleep(1000);
         obj1.setStatusDropdown("Enabled");
         Thread.sleep(1000);
-        //obj1.CancelAddUser();
-       // obj1.typeEmployeeName("Odis Adalwin");
         obj1.typeEmployeeName("Alexa  Max");
         Thread.sleep(1000);
         obj1.userName("alextdff");
         obj1.enterPassword("admin#12345");
-       obj1.enterConfirmPassword();
-       obj1.clickSubmitButton();
-     //  obj1.searchUser("Oldis");
+        obj1.enterConfirmPassword();
+        obj1.clickSubmitButton();
+
+        ///PIM SCREEN//
 
         PIMPage obj2 = new PIMPage(driver);
         obj2.PIMLinkSelection();
@@ -81,20 +72,26 @@ public class orangeHRM {
         obj2.saveButton();
         Thread.sleep(1000);
 
+
+        ///LEAVE SCREEN///
         Leave obj3 = new Leave(driver, wait);
         obj3.leaveOption();
-        Thread.sleep(1000);
-       obj3.clickCheckbox();
-        Thread.sleep(1000);
+        obj3.clickCheckbox();
         obj3.approve();
 
-
-        Time obj4 = new Time(driver,wait);
+        ///TIME SCREEN//
+        Time obj4 = new Time(driver, wait);
         obj4.timeOption();
         obj4.viewButton();
         obj4.approveTimeSheet();
 
 
-     //driver.quit();
+        //LOGOUT//
+
+        Logout obj5 = new Logout(driver);
+        obj5.logoutClick();
+
+
+        //driver.quit();
     }
 }

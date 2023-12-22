@@ -13,7 +13,7 @@ public class PIMPage {
     private WebDriverWait wait;
 
     public PIMPage() {
-        this.driver = driver;
+    //    this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(20)); // Adjust the timeout as needed
     }
 
